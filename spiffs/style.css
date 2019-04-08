@@ -1,0 +1,87 @@
+main { 
+    font-family: sans-serif;
+    
+}
+
+div {
+    height: 35px;
+    width: 320px; 
+    /* äußere Rahmenbreite, inkl. Vererbung */
+    border: 1px dashed green; 
+    vertical-align: middle;
+}
+
+.day{
+    width: 90px;
+    /* height: 22px; */
+    padding: 0px;
+}
+
+.daxxx{
+    width: 90px;
+    /* height: 22px; */
+    padding: 0px;
+}
+
+.time{  
+    width: 90px;
+    text-align: center;
+}
+
+.status{
+    width: 26px;
+}
+
+
+div > div { 
+    border: 1px dashed green;
+    display: inline-block;
+    
+}
+
+/* 
+#tage { 
+    width: 90px; 
+    border: 1px dashed green;
+}
+
+#zeit { 
+    width: 90px;  
+    border: 1px dashed green;
+}
+
+#alarmstatus {
+    width: 30px;
+    border: 1px dashed green;
+}
+
+#save{
+    height: 200px;
+    border: 1px dashed green;
+}
+
+#tage > p {
+    text-align: right;
+    margin-top: 12px;
+    margin-bottom: 17px;
+}
+
+#zeit > p {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+#alarmstatus > p {
+    margin-top: 10px;
+    margin-bottom: 11px;
+}
+
+#save > button {
+    margin-top: 230px;
+}
+
+#übersicht div{
+    vertical-align: top;
+    display: inline-block;
+} */
