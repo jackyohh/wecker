@@ -1,18 +1,17 @@
-// WIFI Logindata TODO: über Drehregler WIFI Logindaten eingeben und in den EPROM abspeichern
+
 
 // OPTIMIZE: describe code that is inefficient and may become a bottleneck
 // HACK: describe the use of a questionable (or ingenious) coding practice
 // REVIEW: describe code that should be reviewed to confirm implementatio
 
-//TODO: 
-// #include <cstdint>
-// int8_t bla = 15;
-//byte verwenden
+//TODO: WIFI Logindata über Drehregler WIFI Logindaten eingeben und in den EPROM abspeichern
+// main aufräumen: --> RTC Komponenten komplett auslagern!
 
 #include <Arduino.h>
 #include <TimeLib.h>
 #include <ESP8266WiFi.h>
 #include <mdns.h>
+#include <ota.h>
 #include <webServer.h>
 #include <Wire.h>
 #include <RTClib.h>
@@ -299,6 +298,7 @@ void setup()
     }
   }
   Serial.println("MDNS responder started");
+  initializeOTA();
 
   //WebServer
   server.on("/", handleRoot);
@@ -344,6 +344,7 @@ void loop(void)
   checkAlarm();
 
   MDNS.update();
+  ArduinoOTA.handle();
   server.handleClient();  // TODO: Weckzeiten übertragen
 
   terminal();
