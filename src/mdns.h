@@ -48,14 +48,14 @@ void MDNSServiceQueryCallback(MDNSResponder::MDNSServiceInfo serviceInfo, MDNSRe
     default :
       answerInfo = "Unknown Answertype";
   }
-  Serial.printf("Answer %s %s\n", answerInfo.c_str(), p_bSetContent ? "Modified" : "Deleted");
+  // Serial.printf("Answer %s %s\n", answerInfo.c_str(), p_bSetContent ? "Modified" : "Deleted");
 }
 
 void serviceProbeResult(String p_pcServiceName,
                         const MDNSResponder::hMDNSService p_hMDNSService,
                         bool p_bProbeResult) {
   (void) p_hMDNSService;
-  Serial.printf("MDNSServiceProbeResultCallback: Service %s probe %s\n", p_pcServiceName.c_str(), (p_bProbeResult ? "succeeded." : "failed!"));
+  // Serial.printf("MDNSServiceProbeResultCallback: Service %s probe %s\n", p_pcServiceName.c_str(), (p_bProbeResult ? "succeeded." : "failed!"));
 }
 
 void hostProbeResult(String p_pcDomainName, bool p_bProbeResult) {
@@ -87,7 +87,7 @@ void hostProbeResult(String p_pcDomainName, bool p_bProbeResult) {
         if (!hMDNSServiceQuery) {
           hMDNSServiceQuery = MDNS.installServiceQuery("http", "tcp", MDNSServiceQueryCallback);
           if (hMDNSServiceQuery) {
-            Serial.printf("MDNSProbeResultCallback: Service query for 'http.tcp' services installed.\n");
+            // Serial.printf("MDNSProbeResultCallback: Service query for 'http.tcp' services installed.\n");
           } else {
             Serial.printf("MDNSProbeResultCallback: FAILED to install service query for 'http.tcp' services!\n");
           }

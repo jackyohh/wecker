@@ -10,19 +10,13 @@ int char2int(char a){
   else return false;
 }
 
-void ShowNewSerialInput(){
-    if (newSerialInput){
-    //Serial.print("Eingabe: ");
-    Serial.println(SerialInputChar);
-    }
-}
-
-void getSerialInputChar(){
+bool newSerialInputChar(){
     if (Serial.available() > 0 ) { 
     SerialInputChar = Serial.read();
-    newSerialInput = true;
+    Serial.println(SerialInputChar);
+    return true;
     }
-    ShowNewSerialInput();
+    return false;
 }
 
 void ShowNewSerialInputArray(char serialArray[], int arraySize){
