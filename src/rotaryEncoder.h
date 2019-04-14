@@ -7,6 +7,9 @@ unsigned int nodgeValue = 2;
 unsigned int encoderCount = 0;
 bool encoderCountChange = 0;   // Zeigt an, ob der Drehregler sich soeben geändert hat --> Wichtig für Menü
 
+static unsigned int encoderButtonDebounceTime = 800;
+
+
 //Sprünge pro kleinste Drehung
 #define nodges 2
 

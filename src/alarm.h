@@ -1,32 +1,11 @@
-class alarm 
-{ 
-  // privat Bereich: kann mittels abc.day nicht aufgerufen werden
-      int day;
-      int hour;
-      int minute;
-      bool onlyonce;
-      bool enable;
+alarm monday, tuesday, wednesday, thursday, friday, saturday, sunday;
 
-  public: 
-    alarm();            // der Default-Konstruktor
-    // alarm(int a=0);     // weiterer Konstruktor mit Parameter und Defaultwert
-    // ~alarm();           // der Destruktor
-    // alarm() : day(0), hour(0), minute(0), enable(1), onlyonce(0) { }   // TODO: nach tiefere Bedeutung bzw. Nutzen suchen
-    
-    void setAlarm(int alarmDay, int alarmHour, int alarmMinute);
-
-    void setAlarm(int alarmDay, int alarmHour, int alarmMinute, bool alarmStatus);
-
-    void enableAlarm();
-
-    void disableAlarm();
-
-    int getDay();
-
-    int getHour();
-
-    int getMinute();
-
-    int getAlarmStatus();
-};
-
+void setDefaultAlarms(){
+  monday.setAlarm(1, 6, 30, 0);   // Alle Weckzeiten sind deaktiviert
+  tuesday.setAlarm(2, 6, 30, 0);
+  wednesday.setAlarm(3, 6, 30, 0);
+  thursday.setAlarm(4, 6, 30, 0);
+  friday.setAlarm(5, 6, 30, 0);
+  saturday.setAlarm(6, 6, 30, 0);
+  sunday.setAlarm(0, 6, 30, 0);     // rtctime.dayOfTheWeek() gibt am Sonntag 0 aus Montag = 1, Dienstag = 2, usw
+}

@@ -19,11 +19,6 @@ char pass[] = WIFI_PASSWD;
 
 unsigned long oldMillis = millis();
 
-//RotaryEncoder
-
-
-// IO Pins
-#define buzPin D8
 //const int LDRpin = A0;
 #define LDRpin A0 //TODO: #define analog pin geht auch??
 #define LCDdimmPin 2
@@ -31,49 +26,21 @@ unsigned long oldMillis = millis();
 #define encoderPinB D6
 #define encoderPinPush D7
 
-int timeZone = 1;     // Central European Time
-//const int timeZone = -5;  // Eastern Standard Time (USA)
-//const int timeZone = -4;  // Eastern Daylight Time (USA)
-//const int timeZone = -8;  // Pacific Standard Time (USA)
-//const int timeZone = -7;  // Pacific Daylight Time (USA)
-int ntpUpdateTime[2] = {21, 56};    // um wieviel Uhr die Synchronisation mit dem NTP stattfinden soll
-#include <clock.h>
+#include <rotaryEncoder.h>
 
+int timeZone = 1;     // Central European Time; -5 Eastern Standard Time (USA); -4 = Eastern Daylight Time (USA) 
+int ntpUpdateTime[2] = {21, 56};    // um wieviel Uhr die Synchronisation mit dem NTP stattfinden soll
+
+#include <clock.h>
 #include <ldr_dimm.h>
 #include <lcd.h>
-unsigned int encoderButtonDebounceTime = 800;
-  #include <rotaryEncoder.h>
-    #include <buzzer.h>
-    #include <menu2004.h>
+#include <buzzer.h>
+#include <alarmCl.h>
 #include <alarm.h>
-  alarm monday;
-  alarm tuesday;
-  alarm wednesday;
-  alarm thursday;
-  alarm friday;
- 	alarm saturday;
- 	alarm sunday;
-
-void setDefaultAlarms(){
-  monday.setAlarm(1, 6, 30, 0);   // Alle Weckzeiten sind deaktiviert
-  tuesday.setAlarm(2, 6, 30, 0);
-  wednesday.setAlarm(3, 6, 30, 0);
-  thursday.setAlarm(4, 6, 30, 0);
-  friday.setAlarm(5, 6, 30, 0);
-  saturday.setAlarm(6, 6, 30, 0);
-  sunday.setAlarm(0, 6, 30, 0);     // rtctime.dayOfTheWeek() gibt am Sonntag 0 aus Montag = 1, Dienstag = 2, usw
-}
-
 #include <myEeprom.h>
-#include <serialInput.h>
+#include <terminal.h>
 
 // #include <audio.h> //TODO: AUDIO an
-
-void safeAlarm(){
-    Serial.println("Speichere geänderte Weckzeit im EEPROM");
-    safeAllAlarmsToEEPROM();
-    loadEEPROMConfigIntoRAM();
-}
 
 void showClockOnLCD(){
   if (!inMenu && oneSecondLater){
@@ -89,9 +56,6 @@ void showClockOnLCD(){
 }
 
 void checkAlarm(){  //FIXME: rtctime.*** geht??
-  //Serial.println("checkAlarm");
-    //rtctime = rtc.now(); // muss enthalten sein. siehe Kommentar bei getRTCtime()
-
     if (rtctime.second() == 0 && oneSecondLater){ // Überprüft nur zu jeder vollen Minute 
       if (cfg.alarmMon[3] == true && cfg.alarmMon[0] == rtctime.dayOfTheWeek() && cfg.alarmMon[1] == rtctime.hour() && cfg.alarmMon[2] == rtctime.minute() ) 
           alarmRing(); 
@@ -110,10 +74,7 @@ void checkAlarm(){  //FIXME: rtctime.*** geht??
     }
 }
 
-#include <terminal.h>
-
-void setup() 
-{
+void setup() {
   //Drehregler + Interrupt
   pinMode (encoderPinA, INPUT_PULLUP);
   pinMode (encoderPinB, INPUT_PULLUP); 
@@ -134,7 +95,6 @@ void setup()
     while (1);
   }
   
-
   // WIFI + NTP Sync
   Serial.print("Verbinde mit ");
   Serial.print(ssid);

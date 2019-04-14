@@ -85,6 +85,12 @@ void safeAllAlarmsToEEPROM(){
   cfg.valid = 1;  
   saveToEEPROM();
 }
+
+void safeAlarm(){
+    Serial.println("Speichere geänderte Weckzeit im EEPROM");
+    safeAllAlarmsToEEPROM();
+    loadEEPROMConfigIntoRAM();
+}
 // Parameter im Programm benutzen
 
 // Im Sketch muß man nach dem Boot in setup() die Parameter vom EEPROM ins RAM laden:

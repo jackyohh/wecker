@@ -86,15 +86,15 @@ bool isSummertime(){
 
 void checkAndFixTimechange(){    
   if (oneSecondLater && summertime != isSummertime()){ // 1s später + falls Zeitumstellung
-      Serial.println("Zeitumstellung");
+      Serial.print("Zeitumstellung: ");
       summertime = isSummertime();
       if (summertime == 1){
         timeClient.setTimeOffset(timeZone*3600 + 3600); // +1h dazu
-        Serial.println("## Sommerzeit");
+        Serial.println("Sommerzeit");
       }
       else{ 
         timeClient.setTimeOffset(timeZone*3600);
-        Serial.println("## Winterzeit");
+        Serial.println("Winterzeit");
       }
       rtc.adjust( DateTime(timeClient.getEpochTime()));
     }

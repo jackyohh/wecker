@@ -1,26 +1,31 @@
-
-  bool inTerminalEnableAlarm = 0;
-  bool inTerminalDisableAlarm = 0;
+#include <serialInput.h>
+  
+bool inTerminalEnableAlarm = 0;
+bool inTerminalDisableAlarm = 0;
 
 void showHelp(){
     Serial.println();
     Serial.println("Hilfe :");
     Serial.println();
-    Serial.println("h Zeigt diese an Hilfe an");
+    Serial.println("h   Zeigt diese an Hilfe an");
     Serial.println("----------------------------------");
-    Serial.println("a Zeige Weckzeiten an (aus EEPROM)");
-    Serial.println("e Weckzeiten anschalten");  
-    Serial.println("d Weckzeiten ausschalten");
-    Serial.println("n Neue Weckzeit stellen");        //FIXME: funktioniert nicht richtig
-    Serial.println("s Übertrage Standardweckzeiten");
+    Serial.println("a   Zeige Weckzeiten an (aus EEPROM)");
+    Serial.println("e   Weckzeiten anschalten");  
+    Serial.println("d   Weckzeiten ausschalten");
+    Serial.println("n   Neue Weckzeit stellen");        //FIXME: funktioniert nicht richtig
+    Serial.println("s   Übertrage Standardweckzeiten");
     Serial.println("----------------------------------");
-    Serial.println("t Zeige NTP und RTC Zeit an");
-    Serial.println("c Zeige Sommer-/Winterzeit an");
-    Serial.println("u Synchronisiere RTC mit NTP Server");
+    Serial.println("t   Zeige NTP und RTC Zeit an");
+    Serial.println("c   Zeige Sommer-/Winterzeit an");
+    Serial.println("u   Synchronisiere RTC mit NTP Server");
     Serial.println("----------------------------------");
-    Serial.println("r Lösche EEPROM");
+    Serial.println("w   WebRadio");
+    Serial.println("----------------------------------");
+    Serial.println("r   Lösche EEPROM");
     Serial.println();
 }
+
+#include <terminal_audio.h>
 
 void parseAlarm(struct array z) {   // TODO: for(i = 0; i < sizeof(struct array) / sizeof(int); i++) verwenden
     // Serial.println("Starte Parsing");
@@ -117,7 +122,6 @@ void terminalEnableAlarm(){
 }
 
 void terminalDisableAlarm(){
-  //sSerialInputChar = ' ';
   if (newSerialInputChar()){
     if ( SerialInputChar == '0' ) {
       monday.disableAlarm();  
@@ -161,7 +165,10 @@ void terminal(){
     terminalDisableAlarm();
     return;
   }
-
+  if (inTerminalAudio){
+    terminalAudio();
+    return;
+  }
   if (newSerialInputChar())  {
     if ( SerialInputChar == 'a' ) {
       SerialInputChar = ' ';
@@ -241,7 +248,14 @@ void terminal(){
     if ( SerialInputChar == 'u' ) {
       SerialInputChar = ' ';
       syncNTPtoRTC();
-      Serial.println(); //TODO: zeitlichen Versatz ausgeben
+      Serial.println();
+    }
+
+    if ( SerialInputChar == 'w' ) {
+      Serial.println("Internetradio");
+      inTerminalAudio = true;
+      terminalAudioHelp();
+      terminalAudio();
     }
 
     if ( SerialInputChar == 'r' ) {

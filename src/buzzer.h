@@ -93,7 +93,6 @@
 #define NOTE_DS8 4978
 
 bool alarmRinging = false;
-int duration = 500;
 int melody[] = {
   NOTE_C5, NOTE_D5, NOTE_E5, NOTE_F5, NOTE_G5, NOTE_A5, NOTE_B5, NOTE_C6};
 
@@ -107,7 +106,6 @@ void alarmRing(){
   lcd.print("Aufwachen!!");
   while (alarmRinging){
       if ( millis() - alarmMillis >1000){
-        tone(buzPin, melody[0], duration);
         alarmMillis = millis();
       }
       if (encoderButtonFired && millis() - oldMillis > encoderButtonDebounceTime){ // Weckalarm deaktivieren

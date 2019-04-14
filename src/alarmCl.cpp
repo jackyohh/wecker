@@ -1,4 +1,4 @@
-#include "alarm.h" // Headerdatei
+#include "alarmCl.h" // Headerdatei
 #include <Arduino.h> //anderenfalls wird "String" und "Serial" nicht erkannt
 
 alarm::alarm()
