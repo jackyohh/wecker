@@ -7,3 +7,5 @@
 .vscode/launch.json
 credentials.privat.h
 credentials.h
+*.bin
+*.ipch
