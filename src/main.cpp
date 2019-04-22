@@ -5,6 +5,15 @@
 //TODO: WIFI Logindata über Drehregler WIFI Logindaten eingeben und in den EPROM abspeichern
 // main aufräumen: --> RTC Komponenten komplett auslagern!
 
+
+//TODO:
+// Achtung: Da die Funktion millis() einen Wert zurückgibt, der 32 Bit breit ist, kann es je nachdem, wie man die Bedingung formuliert, nach rund 49 Tagen zu Überlaufproblemen kommen.
+// Ungünstig:
+//  if(millis() < millisMem + …)
+// Besser:
+//  if(millis() - millisMem > …)
+
+
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <mdns.h>
